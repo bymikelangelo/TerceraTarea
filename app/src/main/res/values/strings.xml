@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">TerceraTarea</string>
+    <string name="main_descripcion">Haz click en el Spinner para seleccionar una categoría de Chistes.
+        \n\nPulsa <b>VISUALIZAR</b> para ver los chistes.
+        \n\nPulsa <b>EDITAR</b> para borrar o añadir nuevos chistes.</string>
+    <string name="main_boton_visualizar">Visualizar</string>
+    <string name="main_boton_editar">Editar</string>
+    <string name="main_toast_sin_resultados">No hay chistes para visualizar en la categoria seleccionada</string>
+
+    <string name="editar_boton_anyadir">Añadir</string>
+    <string name="editar_hint_titulo">Introduce título...</string>
+    <string name="editar_hint_contenido">Introduce contenido del chiste...</string>
+    <string name="editar_opcion_nuevo">Añadir nuevo chiste</string>
+
+    <array name="categorias">
+        <item>"Elige categoría"</item>
+        <item>"Chistes de Sexo"</item>
+        <item>"Chistes de Informática"</item>
+        <item>"Chistes de Maños"</item>
+    </array>
+</resources>
