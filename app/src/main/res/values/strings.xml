@@ -7,6 +7,9 @@
     <string name="main_boton_editar">Editar</string>
     <string name="main_toast_sin_resultados">No hay chistes para visualizar en la categoria seleccionada</string>
 
+    <string name="vis_boton_anterior">Anterior</string>
+    <string name="vis_boton_siguiente">Siguiente</string>
+
     <string name="editar_boton_anyadir">Añadir</string>
     <string name="editar_boton_editar">Editar</string>
     <string name="editar_boton_borrar">Borrar</string>

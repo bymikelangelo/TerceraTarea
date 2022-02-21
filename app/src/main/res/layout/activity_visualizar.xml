@@ -7,6 +7,36 @@
     android:layout_height="match_parent"
     tools:context=".Visualizar">
 
+    <Button
+        android:id="@+id/buttonAnterior"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:enabled="false"
+        android:onClick="anterior"
+        android:text="@string/vis_boton_anterior"
+        android:theme="@style/Botones"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonSiguiente"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSiguiente"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonSiguiente" />
+
+    <Button
+        android:id="@+id/buttonSiguiente"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:enabled="false"
+        android:onClick="siguiente"
+        android:text="@string/vis_boton_siguiente"
+        android:theme="@style/Botones"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonAnterior"
+        app:layout_constraintTop_toBottomOf="@+id/textContenido" />
+
     <Spinner
         android:id="@+id/spinnerTitulosVis"
         android:layout_width="wrap_content"
@@ -19,16 +49,17 @@
 
     <TextView
         android:id="@+id/textContenido"
-        android:layout_width="347dp"
-        android:layout_height="589dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:scrollbars="vertical"
         android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAnterior"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerTitulosVis" />
 </androidx.constraintlayout.widget.ConstraintLayout>

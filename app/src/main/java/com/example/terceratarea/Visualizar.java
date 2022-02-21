@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class Visualizar extends AppCompatActivity {
     String categoria = "";
     List<Chiste> chistes;
     MediaPlayer reproductor;
+    Button buttonSiguiente, buttonAnterior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,26 +44,25 @@ public class Visualizar extends AppCompatActivity {
         spinnerTitulos = findViewById(R.id.spinnerTitulosVis);
         textContenido = findViewById(R.id.textContenido);
         ConstraintLayout layout = findViewById(R.id.layoutVisualizar);
+        buttonAnterior = findViewById(R.id.buttonAnterior);
+        buttonSiguiente = findViewById(R.id.buttonSiguiente);
 
         categoria = getIntent().getStringExtra("categoria");
         switch (categoria) {
             case "manyos":
                 layout.setBackground(getDrawable(R.drawable.manyico_mod));
                 reproductor = MediaPlayer.create(this, R.raw.modorro);
-                spinnerTitulos.setBackgroundColor(getColor(android.R.color.holo_red_dark));
-                spinnerTitulos.setPopupBackgroundResource(android.R.color.holo_red_dark);
+                cambiarColor(android.R.color.holo_red_dark);
                 break;
             case "sexo":
                 layout.setBackground(getDrawable(R.drawable.botella_mod));
                 reproductor = MediaPlayer.create(this, R.raw.ohhh_my_god);
-                spinnerTitulos.setBackgroundColor(getColor(android.R.color.holo_purple));
-                spinnerTitulos.setPopupBackgroundResource(android.R.color.holo_purple);
+                cambiarColor(android.R.color.holo_purple);
                 break;
             case "informatica":
                 layout.setBackground(getDrawable(R.drawable.informatico_mod));
                 reproductor = MediaPlayer.create(this, R.raw.error_windows);
-                spinnerTitulos.setBackgroundColor(getColor(android.R.color.holo_blue_light));
-                spinnerTitulos.setPopupBackgroundResource(android.R.color.holo_blue_light);
+                cambiarColor(android.R.color.holo_blue_light);
                 break;
             default:
                 break;
@@ -90,7 +91,24 @@ public class Visualizar extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
                 textContenido.setText(chistes.get(pos).getContenido());
                 textContenido.setMovementMethod(new ScrollingMovementMethod());
-                reproductor.start();
+                if (reproductor.isPlaying()) {
+                    reproductor.stop();
+                    reproductor.start();
+                }
+                else
+                    reproductor.start();
+                if (pos <= 0) {
+                    disable(buttonAnterior);
+                    enable(buttonSiguiente);
+                }
+                else if(pos >= titulos.size() - 1) {
+                    disable(buttonSiguiente);
+                    enable(buttonAnterior);
+                }
+                else {
+                    enable(buttonAnterior);
+                    enable(buttonSiguiente);
+                }
             }
 
             @Override
@@ -105,5 +123,35 @@ public class Visualizar extends AppCompatActivity {
         super.onDestroy();
         reproductor.release();
         reproductor = null;
+    }
+
+    //mueve en +1 la posición del Spinner de selección
+    public void siguiente(View vista) {
+        spinnerTitulos.setSelection(spinnerTitulos.getSelectedItemPosition() + 1, true);
+    }
+
+    //mueve en -1 la posición del Spinner de selección
+    public void anterior(View vista) {
+        spinnerTitulos.setSelection(spinnerTitulos.getSelectedItemPosition() - 1, true);
+    }
+
+    //cambia el color de los elementos dependiendo de la categoría seleccionada
+    public void cambiarColor(int color) {
+        spinnerTitulos.setBackgroundColor(getColor(color));
+        spinnerTitulos.setPopupBackgroundResource(color);
+        buttonSiguiente.setBackgroundColor(getColor(color));
+        buttonAnterior.setBackgroundColor(getColor(color));
+    }
+
+    //modifica apariencia y habilita el botón pasado por parámetro
+    public void enable(Button boton) {
+        boton.setEnabled(true);
+        boton.setAlpha(1f);
+    }
+
+    //modifica apariencia y desabilita el botón pasado por parámetro
+    public void disable(Button boton) {
+        boton.setEnabled(false);
+        boton.setAlpha(0.7f);
     }
 }
