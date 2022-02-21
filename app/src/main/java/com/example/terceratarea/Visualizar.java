@@ -3,13 +3,9 @@ package com.example.terceratarea;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -91,12 +87,7 @@ public class Visualizar extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
                 textContenido.setText(chistes.get(pos).getContenido());
                 textContenido.setMovementMethod(new ScrollingMovementMethod());
-                if (reproductor.isPlaying()) {
-                    reproductor.stop();
-                    reproductor.start();
-                }
-                else
-                    reproductor.start();
+                reproductor.start();
                 if (pos <= 0) {
                     disable(buttonAnterior);
                     enable(buttonSiguiente);
