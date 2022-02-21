@@ -1,9 +1,15 @@
 package com.example.terceratarea;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +27,7 @@ public class Visualizar extends AppCompatActivity {
     DaoChiste dao;
     String categoria = "";
     List<Chiste> chistes;
+    MediaPlayer reproductor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,31 @@ public class Visualizar extends AppCompatActivity {
 
         spinnerTitulos = findViewById(R.id.spinnerTitulosVis);
         textContenido = findViewById(R.id.textContenido);
+        ConstraintLayout layout = findViewById(R.id.layoutVisualizar);
+
         categoria = getIntent().getStringExtra("categoria");
+        switch (categoria) {
+            case "manyos":
+                layout.setBackground(getDrawable(R.drawable.manyico_mod));
+                reproductor = MediaPlayer.create(this, R.raw.modorro);
+                spinnerTitulos.setBackgroundColor(getColor(android.R.color.holo_red_dark));
+                spinnerTitulos.setPopupBackgroundResource(android.R.color.holo_red_dark);
+                break;
+            case "sexo":
+                layout.setBackground(getDrawable(R.drawable.botella_mod));
+                reproductor = MediaPlayer.create(this, R.raw.ohhh_my_god);
+                spinnerTitulos.setBackgroundColor(getColor(android.R.color.holo_purple));
+                spinnerTitulos.setPopupBackgroundResource(android.R.color.holo_purple);
+                break;
+            case "informatica":
+                layout.setBackground(getDrawable(R.drawable.informatico_mod));
+                reproductor = MediaPlayer.create(this, R.raw.error_windows);
+                spinnerTitulos.setBackgroundColor(getColor(android.R.color.holo_blue_light));
+                spinnerTitulos.setPopupBackgroundResource(android.R.color.holo_blue_light);
+                break;
+            default:
+                break;
+        }
 
         /*
         consulta a la base de datos para recibir los chistes de la categoria seleccionada.
@@ -59,6 +90,7 @@ public class Visualizar extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
                 textContenido.setText(chistes.get(pos).getContenido());
                 textContenido.setMovementMethod(new ScrollingMovementMethod());
+                reproductor.start();
             }
 
             @Override
@@ -66,5 +98,12 @@ public class Visualizar extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        reproductor.release();
+        reproductor = null;
     }
 }
