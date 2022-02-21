@@ -2,21 +2,30 @@ package com.example.terceratarea;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "chistes")
 public class Chiste {
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    private int id;
     @NonNull
-    public String categoria;
+    private String categoria;
     @NonNull
-    public String titulo;
+    private String titulo;
     @NonNull
-    public String contenido;
+    private String contenido;
 
     public Chiste(@NonNull String categoria, @NonNull String titulo, @NonNull String contenido) {
+        this.categoria = categoria;
+        this.titulo = titulo;
+        this.contenido = contenido;
+    }
+
+    @Ignore
+    public Chiste(int id, @NonNull String categoria, @NonNull String titulo, @NonNull String contenido) {
+        this.id = id;
         this.categoria = categoria;
         this.titulo = titulo;
         this.contenido = contenido;
